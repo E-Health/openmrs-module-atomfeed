@@ -24,6 +24,7 @@ import org.openmrs.module.atomfeed.api.exceptions.AtomfeedException;
 import org.openmrs.module.atomfeed.api.filter.GenericFeedFilterStrategy;
 import org.openmrs.module.atomfeed.api.model.FeedConfiguration;
 import org.openmrs.module.atomfeed.api.service.FeedConfigurationService;
+import org.openmrs.module.atomfeed.client.MessagePublisherClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class DefaultFeedWriter extends FeedWriterBase {
 
 	@Autowired
 	private FeedConfigurationService feedConfigurationService;
+
+	@Autowired
+    private MessagePublisherClient messagePublisherClient;
 
 	@Override
 	public void writeFeed(OpenmrsObject openmrsObject, EventAction eventAction, FeedConfiguration feedConfiguration) {
@@ -69,6 +73,7 @@ public class DefaultFeedWriter extends FeedWriterBase {
 		);
 		debugEvent(event);
 		saveEvent(event);
+		messagePublisherClient.publish(event.getContents()); // Kafka @beapen
 		LOGGER.info("A feed for {} has been saved in AtomFeed", openmrsObject.getClass().getName());
 	}
 	
