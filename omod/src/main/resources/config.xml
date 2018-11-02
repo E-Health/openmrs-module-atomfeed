@@ -60,6 +60,20 @@
 		<defaultValue>*%*%*%*%*</defaultValue>
 		<description>Value of this property is used to filter objects pulled from parent.</description>
 	</globalProperty>
-
+	<globalProperty>
+		<property>${project.parent.artifactId}.KAFKA_HOST</property>
+		<defaultValue>localhost</defaultValue>
+		<description>The Kafka Host</description>
+	</globalProperty>
+	<globalProperty>
+		<property>${project.parent.artifactId}.KAFKA_PORT</property>
+		<defaultValue>9092</defaultValue>
+		<description>The Kafka Port</description>
+	</globalProperty>
+	<globalProperty>
+		<property>${project.parent.artifactId}.KAFKA_TOPIC</property>
+		<defaultValue>openmrs</defaultValue>
+		<description>The Kafka Topic</description>
+	</globalProperty>
 </module>
 
